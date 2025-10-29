@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <title>NeoApps - Contacto</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" >
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" >
+  
+  <style>
+    #map { height: 500px; margin-top: 20px; }
+    .info-contacto { margin-top: 20px; }
+    label { display: block; margin-top: 10px; }
+    #ruta-info { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="../index.html">NeoApps<span>.</span></a></div>
+      <nav class="nav">
+        <a href="../index.html" class="nav-link">Inicio</a>
+        <a href="galeria.html" class="nav-link">Galería</a>
+        <a href="presupuesto.html" class="nav-link">Presupuesto</a>
+        <a href="contacto.html" class="nav-link active">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main>
+    <section class="container">
+      <h1>Contacto</h1>
+
+      <div class="info-contacto">
+        <p><strong>Dirección:</strong> Plaza Mayor, Madrid, España</p>
+        <p><strong>Teléfono:</strong> 643 252 865</p>
+        <p><strong>Email:</strong> contacto@neoapps.com</p>
+      </div>
+
+      <div id="ruta-info"></div>
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+       <!-- Dirección -->
+        <p>📍 Plaza Mayor, Madrid, España</p>
+
+        <!-- Aviso legal -->
+        <p><a href="aviso-legal.html">Aviso legal</a></p>
+
+        <!-- Copyright -->
+        <p>&copy; 2025 NeoApps</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+
+  <script>
+    const empresaCoords = [40.415363, -3.707398]; // Coordenadas Plaza Mayor Madrid
+
+    const map = L.map('map').setView(empresaCoords, 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const marker = L.marker(empresaCoords).addTo(map)
+      .bindPopup('<b>NeoApps</b><br>Plaza Mayor, Madrid').openPopup();
+
+    let control = null;
+    const rutaInfo = document.getElementById("ruta-info");
+
+    // Traducción básica para Leaflet Routing Machine
+    L.Routing.Localization = {
+      button: {
+        "reset": "Reiniciar",
+        "expand": "Expandir",
+        "collapse": "Colapsar"
+      },
+      itinerary: {
+        "kilometers": " km",
+        "meters": " m",
+        "hours": " h",
+        "minutes": " min"
+      }
+    };
+
+    document.getElementById('calcular').addEventListener('click', () => {
+      const origen = document.getElementById('origen').value.trim();
+      if (!origen) { 
+        alert('Por favor, escribe una ubicación de origen.'); 
+        return; 
+      }
+
+      // Geocodificar dirección usando Nominatim
+      fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(origen))
+        .then(r => r.json())
+        .then(data => {
+          if (!data || data.length === 0) {
+            alert('No se encontró la ubicación.');
+            return;
+          }
+          const lugar = data[0];
+          const origenCoords = [parseFloat(lugar.lat), parseFloat(lugar.lon)];
+
+          if (control) map.removeControl(control);
+
+          control = L.Routing.control({
+            waypoints: [
+              L.latLng(origenCoords[0], origenCoords[1]),
+              L.latLng(empresaCoords[0], empresaCoords[1])
+            ],
+            router: L.Routing.osrmv1({
+              serviceUrl: 'https://router.project-osrm.org/route/v1'
+            }),
+            showAlternatives: false,
+            fitSelectedRoutes: true,
+            language: 'es',
+            routeWhileDragging: true
+          }).addTo(map);
+
+          control.on('routesfound', function(e) {
+            const routes = e.routes;
+            const summary = routes[0].summary;
+            rutaInfo.innerHTML = `
+              <p>Distancia: ${(summary.totalDistance / 1000).toFixed(2)} km</p>
+              <p>Duración estimada: ${(summary.totalTime / 60).toFixed(0)} minutos</p>
+            `;
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          alert('Error al geocodificar la dirección.');
+        });
+    });
+  </script>
+</body>
+</html>

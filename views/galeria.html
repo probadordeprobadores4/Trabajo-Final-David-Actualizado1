@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Galería - NeoApps</title>
+
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Carrusel: tu CSS embebido reducido -->
+  <style>
+    :root{ --w:700px; }
+    .carousel-wrapper{
+      width:60%;
+      max-width:var(--w);
+      margin:80px auto; /* deja espacio para el header */
+      position:relative;
+    }
+    .carousel-wrapper input[type="radio"]{ display:none }
+    .carousel{ overflow:hidden; border-radius:12px; background:#111; height: auto; line-height: 0;
+  }
+    .carousel ul{
+      display:flex; list-style:none; margin:0; padding:0;
+      width:500%; transition:transform .7s cubic-bezier(.77,0,.175,1);
+    }
+    .carousel li{ width:20%; }
+    .carousel img{ width:100%; display:block; border-radius:12px; object-fit:cover; height: 400px;
+    }
+
+    /* Movimiento */
+    #slide1:checked ~ .carousel ul{ transform:translateX(0%); }
+    #slide2:checked ~ .carousel ul{ transform:translateX(-20%); }
+    #slide3:checked ~ .carousel ul{ transform:translateX(-40%); }
+    #slide4:checked ~ .carousel ul{ transform:translateX(-60%); }
+    #slide5:checked ~ .carousel ul{ transform:translateX(-80%); }
+
+    /* Dots */
+    .dots{ text-align:center; margin-top:12px; }
+    .nav-dot{
+      display:inline-block; width:12px; height:12px; border-radius:50%;
+      background:#fff; opacity:.45; margin:0 7px; cursor:pointer;
+      transition:transform .18s,opacity .18s;
+    }
+    .nav-dot:hover{ transform:scale(1.25); opacity:.8 }
+    #slide1:checked ~ .dots label[for="slide1"],
+    #slide2:checked ~ .dots label[for="slide2"],
+    #slide3:checked ~ .dots label[for="slide3"],
+    #slide4:checked ~ .dots label[for="slide4"],
+    #slide5:checked ~ .dots label[for="slide5"]{ opacity:1 }
+
+    /* Flechas */
+    .arrows{ position:relative; width:100%; height:0; }
+    .arrows .group{ display:none; position:absolute; top:50%; left:0; right:0;
+      transform:translateY(-50%); pointer-events:none;
+    }
+    .arrows .group label{ pointer-events:auto; }
+    .arrows .group .left, .arrows .group .right{
+      position:absolute; top:50%; transform:translateY(-50%);
+      font-size:34px; color:#fff; opacity:.85;
+      background:rgba(0,0,0,.25); border-radius:6px;
+      width:44px; height:44px; line-height:44px;
+      text-align:center; cursor:pointer; user-select:none;
+    }
+    .arrows .group .left{ left:12px; }
+    .arrows .group .right{ right:12px; }
+    .arrows .group .left:hover, .arrows .group .right:hover{
+      transform:translateY(-50%) scale(1.08); opacity:1;
+    }
+
+    /* Mostrar flechas activas */
+    #slide1:checked ~ .arrows .g1,
+    #slide2:checked ~ .arrows .g2,
+    #slide3:checked ~ .arrows .g3,
+    #slide4:checked ~ .arrows .g4,
+    #slide5:checked ~ .arrows .g5 { display:block; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="../index.html">NeoApps<span>.</span></a>
+      </div>
+      <nav class="nav">
+        <a href="../index.html" class="nav-link">Inicio</a>
+        <a href="galeria.html" class="nav-link active">Galería</a>
+        <a href="presupuesto.html" class="nav-link">Presupuesto</a>
+        <a href="contacto.html" class="nav-link">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <section class="gallery">
+      <h1>Galería de fotos</h1>
+      <h2>NeoApps</h2>
+
+      <div class="carousel-wrapper">
+        <input id="slide1" type="radio" name="controls" checked>
+        <input id="slide2" type="radio" name="controls">
+        <input id="slide3" type="radio" name="controls">
+        <input id="slide4" type="radio" name="controls">
+        <input id="slide5" type="radio" name="controls">
+
+        <div class="carousel">
+  <ul>
+    <li><img src="../images/app1.jpg" alt="1" width="600" height="400"></li>
+    <li><img src="../images/app2.jpg" alt="2" width="600" height="400"></li>
+    <li><img src="../images/app3.jpg" alt="3" width="600" height="400"></li>
+    <li><img src="../images/app4.jpg" alt="4" width="600" height="400"></li>
+    <li><img src="../images/app5.jpg" alt="5" width="600" height="400"></li>
+  </ul>
+</div>
+
+
+        <div class="arrows">
+          <div class="group g1">
+            <label for="slide5" class="left">&#10094;</label>
+            <label for="slide2" class="right">&#10095;</label>
+          </div>
+          <div class="group g2">
+            <label for="slide1" class="left">&#10094;</label>
+            <label for="slide3" class="right">&#10095;</label>
+          </div>
+          <div class="group g3">
+            <label for="slide2" class="left">&#10094;</label>
+            <label for="slide4" class="right">&#10095;</label>
+          </div>
+          <div class="group g4">
+            <label for="slide3" class="left">&#10094;</label>
+            <label for="slide5" class="right">&#10095;</label>
+          </div>
+          <div class="group g5">
+            <label for="slide4" class="left">&#10094;</label>
+            <label for="slide1" class="right">&#10095;</label>
+          </div>
+        </div>
+
+        <div class="dots">
+          <label for="slide1" class="nav-dot"></label>
+          <label for="slide2" class="nav-dot"></label>
+          <label for="slide3" class="nav-dot"></label>
+          <label for="slide4" class="nav-dot"></label>
+          <label for="slide5" class="nav-dot"></label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>📍 Plaza Mayor, Madrid, España</p>
+      <p><a href="aviso-legal.html">Aviso legal</a></p>
+      <p>&copy; 2025 NeoApps</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+

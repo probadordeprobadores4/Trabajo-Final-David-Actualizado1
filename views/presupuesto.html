@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale= 1">
+    <title>NeoApps - Presupuesto</title>
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="../index.html">NeoApps<span>.</span></a></div>
+      <nav class="nav">
+        <a href="../index.html" class="nav-link">Inicio</a>
+        <a href="galeria.html" class="nav-link">Galería</a>
+        <a href="presupuesto.html" class="nav-link active">Presupuesto</a>
+        <a href="contacto.html" class="nav-link">Contacto</a>
+      </nav>
+    </div>
+  </header>
+  
+
+  <!-- FORMULARIO -->
+  <main>
+    <section class="container">
+      <h1>Calcula tu presupuesto</h1>
+      <form id="formPresupuesto">
+        
+        <!-- DATOS DE CONTACTO -->
+        <fieldset>
+          <legend>Datos de contacto</legend>
+          <label>Nombre: <input type="text" id="nombre" required></label><br>
+          <label>Apellidos: <input type="text" id="apellidos" required></label><br>
+          <label>Teléfono: <input type="text" id="telefono" required></label><br>
+          <label>Email: <input type="email" id="email" required></label>
+        </fieldset>
+
+        <!-- PRESUPUESTO -->
+        <fieldset>
+          <legend>Presupuesto</legend>
+          
+          <label>Producto:
+            <select id="producto" required>
+               <option value="" disabled selected>-- Selecciona un producto --</option>
+              <option value="500">App informativa - 500€</option>
+              <option value="1000">App con login - 1000€</option>
+              <option value="1500">App avanzada - 1500€</option>
+            </select>
+          </label><br>
+
+          <label>Plazo (meses): <input type="number" id="plazo" min="1" value="1"></label><br>
+
+          <label>Extras:</label><br>
+          <label><input type="checkbox" class="extras" value="100"> Diseño personalizado (+100€)</label><br>
+          <label><input type="checkbox" class="extras" value="150"> Soporte premium (+150€)</label><br>
+          <label><input type="checkbox" class="extras" value="200"> Integración API (+200€)</label><br>
+
+          <p>Presupuesto final: <span id="presupuestoFinal">0€</span></p>
+        </fieldset>
+
+        <!-- CONDICIONES -->
+        <fieldset>
+          <label><input type="checkbox" id="condiciones"> Acepto las condiciones</label><br>
+          <button type="submit">Enviar</button>
+          <button type="reset">Resetear</button>
+        </fieldset>
+
+      </form>
+    </section>
+  </main>
+
+   <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+       <!-- Dirección -->
+        <p>📍 Plaza Mayor, Madrid, España</p>
+
+        <!-- Aviso legal -->
+        <p><a href="aviso-legal.html">Aviso legal</a></p>
+
+        <!-- Copyright -->
+        <p>&copy; 2025 NeoApps</p>
+    </div>
+  </footer>
+
+  <script src="js/presupuesto.js"></script>
+</body>
+</html>

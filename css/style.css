@@ -1,0 +1,151 @@
+/*RESET BÁSICO*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column; /* Organiza los elementos de arriba hacia abajo */
+  min-height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/*HEADER Y NAVEGACIÓN*/
+
+.site-header {
+  background: #0d47a1;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.logo a {
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: background 0.3s;
+}
+
+.nav-link:hover {
+  background: #1565c0;
+  border-radius: 5px;
+}
+
+.nav-link.active {
+  background: white;
+  color: #0d47a1;
+  border-radius: 5px;
+}
+
+/*MAIN SECCIONES*/
+
+main {
+  margin-top: 80px;
+  flex: 1; /* Esto asegura que el main ocupe el espacio disponible */
+}
+
+.hero {
+  background: linear-gradient(to right, #0d47a1, #1976d2);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.about, .services, .news, .contacto {
+  padding: 40px 0;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #0d47a1;
+}
+
+ul {
+  list-style-type: square;
+  margin-left: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/*GALERÍA*/
+
+.gallery {
+  text-align: center;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.gallery-grid img {
+  width: calc(33% - 10px);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+}
+
+/*FOOTER*/
+
+.site-footer {
+  background: #0d47a1;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.site-footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.social-icon {
+  width: 40px;       
+  height: 40px;
+  object-fit: contain;
+  }
